@@ -1,11 +1,29 @@
-describe('ArtistListControl', function() {
+describe('asm Controllers', function() {
 
-	beforeEach(module('asmApp'));
+	describe('ArtistListControl', function() {
+		var scope, control, $httpBackend
 
-	it('should create "artists" model with 3 artists', inject(function($controller) {
-		var scope = {},
-				ctrl = $controller('ArtistListControl', {$scope:scope});
+		beforeEach(module('asmApp'));
 
-		expect(scope.artists.length).toBe(3);
-	}));
+		beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+			$httpBackend = _$httpBackend_;
+			jasmine.getJSONFixtures().fixturesPath='base/test/mock';
+
+			$httpBackend.expectGET('json/artistSample.json').respond(
+				getJSONFixture('artistMock.json')
+			);
+
+			scope = $rootScope.$new();
+			ctrl = $controller('ArtistListControl', {$scope: scope});
+		}));
+
+		it('should create "artists" model with 3 artists fetched from xhr', function() {
+			expect(scope.artists).toBeUndefined();
+			$httpBackend.flush();
+
+			expect(scope.artists).toEqual(
+				getJSONFixture('artistMock.json')
+			);
+		});
+	});
 });
