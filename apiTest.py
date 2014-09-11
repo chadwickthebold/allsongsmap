@@ -10,9 +10,10 @@ def unix_time(dt):
 	delta = dt - epoch
 	return delta.total_seconds()
 
+# Gets a rudimentary 8-byte hash of a given string
 def hash_name(name):
 	hashStr = hashlib.sha256(name).hexdigest()
-	hashNum = int(hashStr,base=16)
+	hashNum = int(hashStr,base=16) & 0xffffffffffffff
 	return hashNum
 
 # Open the log file and print the starting time
@@ -28,10 +29,12 @@ keyFile.close
 
 # Placeholder variables
 date = ''
+artistExecString = ''
 dateFormat = '%a, %d %b %Y'
 numResults = 20
 numArtistTotal = 0
 artistId = 0
+artistDict = {}
 
 # Open the sqlite database connection
 conn = sqlite3.connect('allsongsmap.db')
@@ -41,13 +44,30 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS Stories(storyid integer, date text)''')
 
 # Create the Artist table "
-c.execute('''CREATE TABLE IF NOT EXISTS Artists(artistid text, artistname text)''')
+c.execute('''CREATE TABLE IF NOT EXISTS Artists(artistid integer, artistname text)''')
 
 # Create the Artistmap table "
-c.execute('''CREATE TABLE IF NOT EXISTS Artistmap(storyid integer, artistid text)''')
+c.execute('''CREATE TABLE IF NOT EXISTS Artistmap(storyid integer, artistid integer)''')
 
 #TODO add checking for existing values
 #TODO add verbose output option
+
+def process_artist(storyId, artist):
+	artistId = str(hash_name(artist))
+
+	# Only insert a new Artists table row if the artist has not been already added
+	if(not (str(artistId) in artistDict)):
+		artistDict[str(artistId)] = artist.replace("'","''")
+		artistExecString = "INSERT INTO Artists VALUES (" + artistId + ",'" + artist.replace("'","''") + "')"
+		log.write('Executing: ' + artistExecString + '\n')
+		c.execute(artistExecString)
+					
+		# Unconditionally map the artist to the story
+		artistmapExecString = 'INSERT INTO Artistmap VALUES (' + storyId + "," + artistId + ")"
+		log.write('Executing: ' + artistmapExecString + '\n')
+		c.execute(artistmapExecString)
+			
+
 
 while (numResults >= 20):
 	# Get the start time of the request
@@ -98,30 +118,16 @@ while (numResults >= 20):
 				# If a song artist exists, record its necessary details
 				if (songArtist and (songArtist != 'Untitled')):
 					numArtist += 1
-					artistId = str(hash_name(songArtist))
 					resString = resString + ',' + songArtist
-					artistExecString = "INSERT INTO Artists VALUES ('" + artistId + "','" + songArtist.replace("'","''") + "')"
-					log.write('Executing: ' + artistExecString + '\n')
-					c.execute(artistExecString)
-					artistmapExecString = 'INSERT INTO Artistmap VALUES (' + storyId + ",'" + artistId + "')"
-					log.write('Executing: ' + artistmapExecString + '\n')
-					c.execute(artistmapExecString)
-
+					process_artist(storyId, songArtist)
+		
 				# If an album artist exists and is not the same as the song artist, record its necessary details
 				if (albumArtist and (songArtist != albumArtist) and (albumArtist != 'Untitled')):
 					numArtist += 1
-					artistId = str(hash_name(albumArtist))
-					resString = resString + ',' + albumArtist
-					artistExecString = "INSERT INTO Artists VALUES ('" + artistId + "','" + albumArtist.replace("'","''") + "')"
-					log.write('Executing: ' + artistExecString + '\n')
-					c.execute(artistExecString)
-					artistmapExecString = 'INSERT INTO Artistmap VALUES (' + storyId + ",'" + artistId + "')"
-					log.write('Executing: ' + artistmapExecString + '\n')
-					c.execute(artistmapExecString)
-			
+					process_artist(storyId, albumArtist)
+
 			# If artists were found in this story, insert the story into the Stories table
-			if (numArtist > 0):
-				artistString = artistString.replace("'","''")
+			if (numArtist > 0):	
 				executeString = 'INSERT INTO Stories VALUES (' + storyId + "," + dateNum + ")"
 				log.write(resString + '\n')
 				log.write('Executing : ' + executeString + '\n')
@@ -129,7 +135,6 @@ while (numResults >= 20):
 				numArtistTotal += numArtist
 			
 			numArtist = 0
-			artistString = ''
 			resString = ''
 			executeString = ''
 	
