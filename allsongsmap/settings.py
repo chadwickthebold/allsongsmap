@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nz8_s!a3m+j*0a%%ksz#fx#s5r(^ucr2ngx83pc^14&40kx)7f'
+SECRET_KEY = '1kma+h+#ap5%dr1_-@zovd8bomg!&3ut$))=k*%6r-$2w#$-o6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'musicmapper',
+    'musicmapper'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,7 +59,7 @@ WSGI_APPLICATION = 'allsongsmap.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/chadwickthebold/Documents/Dev/allsongsmap/allsongsmap.db',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
