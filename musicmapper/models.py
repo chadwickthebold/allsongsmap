@@ -4,7 +4,7 @@ from django.db import models
 
 class Artist(models.Model):
 	name = models.CharField(max_length=200)
-	artistId = models.CharField(max_length=32x) # This sould be the MBID xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx,
+	artistId = models.CharField(max_length=32) # This sould be the MBID xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx,
 	def __unicode__(self):
 		return self.name
 

@@ -9,7 +9,7 @@ class ArtistAdmin(admin.ModelAdmin):
 class SongAdmin(admin.ModelAdmin):
 	fieldsets = [
 		(None,{'fields': ['title']}),
-		('Foreign Keys', {'fields': ['story', 'artist']})
+		('Foreign Keys', {'fields': ['story', 'artist'], 'classes': ['collapse']})
 	]
 
 # Register your models here.

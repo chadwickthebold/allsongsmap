@@ -1,9 +1,11 @@
+import sys
 import requests
 import time
 import sqlite3
 import hashlib
 import xml.etree.ElementTree as ET
 from datetime import datetime
+import musicbrainzngs
 
 def unix_time(dt):
 	""" Get the unix time from a given datetime obj
@@ -14,20 +16,27 @@ def unix_time(dt):
 	delta = dt - epoch
 	return delta.total_seconds()
 
-def hash_name(name):
-	""" Gets a rudimentary 8-byte hash of a given string
+def get_mbid(name):
+	""" Gets the musicbrainz ID for a given artist name
 
-	Returns integer.
+	Returns string
 	"""
-	hashStr = hashlib.sha256(name).hexdigest()
-	hashNum = int(hashStr,base=16) & 0xffffffffffffff
-	return hashNum
+	result = musicbrainzngs.search_artists(artist=name)
+	try:
+		result = result['artist-list'][0]['id']
+	except IndexError:
+		result = 'err'
+	return result
 
 # Open the log file and print the starting time
-log = open('allsongsmap.log','w')
+#log = open('allsongsmap.log','w')
+log = sys.stdout
 startTime = time.localtime()
 startTimeString = time.strftime('%a, %d-%m-%y %H:%M %p', startTime)
 log.write('Started allsongsmap at : ' + startTimeString + '\n')
+
+# Set the useragent for musicbrainz api requests
+musicbrainzngs.set_useragent("allsongsmap", "0.01", "http://tylerchadwick.com")
 
 # Parse the file containing API keys
 keyFile = open('keys.prop','r')
@@ -41,6 +50,7 @@ dateFormat = '%a, %d %b %Y'
 numResults = 20
 numArtistTotal = 0
 artistId = 0
+artistList = []
 artistDict = {}
 
 # Open the sqlite database connection
@@ -51,29 +61,32 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS Stories(storyid integer, date text)''')
 
 # Create the Artist table "
-c.execute('''CREATE TABLE IF NOT EXISTS Artists(artistid integer, artistname text)''')
+c.execute('''CREATE TABLE IF NOT EXISTS Artists(artistid text, artistname text)''')
 
 # Create the Artistmap table "
-c.execute('''CREATE TABLE IF NOT EXISTS Artistmap(storyid integer, artistid integer)''')
+c.execute('''CREATE TABLE IF NOT EXISTS Artistmap(storyid integer, artistid text)''')
 
 #TODO add checking for existing values
 #TODO add verbose output option
 
 def process_artist(storyId, artist):
-	artistId = str(hash_name(artist))
+	artist = artist.replace("'","''")
 
 	# Only insert a new Artists table row if the artist has not been already added
-	if(not (str(artistId) in artistDict)):
-		artistDict[str(artistId)] = artist.replace("'","''")
-		artistExecString = "INSERT INTO Artists VALUES (" + artistId + ",'" + artist.replace("'","''") + "')"
+	if (not artist in artistList):
+		artistId = get_mbid(artist)
+		artistList.append(artist)
+		artistDict[artist] = artistId
+		artistExecString = "INSERT INTO Artists VALUES ('" + artistId + "','" + artist.replace("'","''") + "')"
 		log.write('Executing: ' + artistExecString + '\n')
 		c.execute(artistExecString)
-					
-		# Unconditionally map the artist to the story
-		artistmapExecString = 'INSERT INTO Artistmap VALUES (' + storyId + "," + artistId + ")"
-		log.write('Executing: ' + artistmapExecString + '\n')
-		c.execute(artistmapExecString)
-			
+	else:
+		artistId = artistDict[artist]
+
+	# Unconditionally map the artist to the story
+	artistmapExecString = 'INSERT INTO Artistmap VALUES (' + storyId + ",'" + artistId + "')"
+	log.write('Executing: ' + artistmapExecString + '\n')
+	c.execute(artistmapExecString)
 
 
 while (numResults >= 20):
@@ -109,8 +122,6 @@ while (numResults >= 20):
 			resString = storyId + ' : ' + date + ' : ' + dateNum 
 			
 			# Iterate over all the songs found in the current story
-			#TODO check if artist has already been inserted into the Artists table
-			#TODO create artistmap table
 			for song in story.findall('song'):
 				songArtist = song.find('artist').text
 				album = song.find('album')

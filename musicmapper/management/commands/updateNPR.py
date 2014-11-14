@@ -12,6 +12,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		self.stdout.write('started NPR update command')
 		# Set the useragent for musicbrainz api requests
-		musicbrainzngs.set_useragent("allsongsmap", "0.01", "http://tylerchadwick.com")
+		#musicbrainzngs.set_useragent("allsongsmap", "0.01", "http://tylerchadwick.com")
 		# Search for an artist
-		result = musicbrainzngs.search_artists(artist="Brody Dalle")
+		#result = musicbrainzngs.search_artists(artist="Brody Dalle")
+		
