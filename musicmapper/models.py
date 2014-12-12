@@ -9,10 +9,11 @@ class Artist(models.Model):
 		return self.name
 
 class Story(models.Model):
+	title = models.TextField()
 	storyId = models.IntegerField()
 	date = models.DateTimeField()
 	def __unicode__(self):
-		return self.storyId
+		return self.title
 
 class Song(models.Model):
 	title = models.CharField(max_length=200)

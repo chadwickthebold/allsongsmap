@@ -1,1 +1,7 @@
 [10/Dec/2014 23:01:50] INFO [musicmapper.management.commands.updateNPR:17] started NPR update command
+[12/Dec/2014 00:22:02] INFO [musicmapper.management.commands.updateNPR:85] started NPR update command
+[12/Dec/2014 00:24:20] INFO [musicmapper.management.commands.updateNPR:103] started NPR update command
+[12/Dec/2014 00:26:41] INFO [musicmapper.management.commands.updateNPR:103] started NPR update command
+[12/Dec/2014 00:26:41] INFO [musicmapper.management.commands.updateNPR:120] 0.0:0.0:0.0
+[12/Dec/2014 00:34:54] INFO [musicmapper.management.commands.updateNPR:105] started NPR update command
+[12/Dec/2014 00:34:54] INFO [musicmapper.management.commands.updateNPR:122] -1.0:59.0:59.9999990463

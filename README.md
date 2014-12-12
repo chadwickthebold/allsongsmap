@@ -35,3 +35,4 @@ Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.6. Als
 * [ ] logging
 * [ ] fix mbid to resolve case sensitivity issues, not just take top result
 * [ ] need to clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
+* [ ] set NPRKEY and SONGKICKKEY environment variables secretly
