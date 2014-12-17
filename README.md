@@ -21,6 +21,15 @@ Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.6. Als
 * allsongsmap = project, musicmapper = app, webapp = client interface, externs = external resources
 * all test commands go in /dev folder
 
+## Keys
+
+Keys should be stored in exportKeys.sh. As of now, you need to login to vagrant 1 time upon provisioning and run 
+```
+. ./allsongsmap/exportKeys.sh
+```
+
+where exportKeys.sh is an executable script containing NPRKEY and SONGKICKKEY variables
+
 ## Steps to get project running
 
 1. Clone from bitbucket
@@ -30,9 +39,22 @@ Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.6. Als
 3. Run 'manage.py syncdb' to create sqlite tables
 	* Use super:pw/info@tylerchadwick.com for development when asked to create superusers
 
+## Logging
+
+Logging is accomplished with pythons built in logging functionality. Inside a command,
+
+```
+logger = logging.getLogger(__name__)
+logger.info( 'Finished UpdateNPR command in %s:%s:%s' % (hours, minutes, seconds) )
+logger.debug( 'blah blah blah')
+```
+etc...
+
+A matching logging handler needs to have been declared inside the top level settings.py to properly catch stuff.
+
 ## TODO
 
-* [ ] logging
+* [*] logging
 * [ ] fix mbid to resolve case sensitivity issues, not just take top result
 * [ ] need to clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
-* [ ] set NPRKEY and SONGKICKKEY environment variables secretly
+* [ ] set NPRKEY and SONGKICKKEY environment variables automatically
