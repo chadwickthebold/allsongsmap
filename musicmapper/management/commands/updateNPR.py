@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand, CommandError
 from musicmapper.models import Artist, Story, Song
 
 logger = logging.getLogger(__name__)
-dateFormat = '%a, %d %b %Y'
+dateFormat = '%a, %d %b %Y %H:%M:%S'
 
 class Command(BaseCommand):
 	args = '<>'
@@ -68,13 +68,58 @@ class Command(BaseCommand):
 
 
 
-	def processSong(self):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	def processSong(self, songET, storyObj):
 		"""
 
 		"""
 
+		# Create and save the song object in the Django model
+		song = Song(title=songET.find('title').text)
 
+		# Look for the artist name
+		artistName = songET.find('artist').text
+		if (artistName is None) or artistName == '':
+			artistName = songET.find('album').find('albumArtist').text
 
+		# Look for the artist. If the artist does not exist, create a new object
+		if not Artist.objects.filter(name=artistName).exists():
+			artistObj = Artist(name=artistName)
+			artistObj.save()
+			song.artist = artistObj
+		else: 
+			song.artist = Artist.objects.get(name=artistName)
+
+		logger.info("Found Song : '%s' by '%s'" % (songET.find('title').text, artistName))
+		song.save()
+
+		# Save the song and the artist to the many-to-many fields of the containing story
+		storyObj.songs.add(song)
+		storyObj.artists.add(song.artist)
 
 
 
@@ -144,17 +189,36 @@ class Command(BaseCommand):
 
 		"""
 
-		dateString = storyET.find('storyDate').text[:-14].strip()
+		# Create a date object for the story
+		dateString = storyET.find('storyDate').text[:-5].strip()
 		dateObj = datetime.datetime.strptime(dateString, dateFormat)
-		date = str(dateObj.year)+'-'+str(dateObj.month)+'-'+str(dateObj.day)
-
-		logger.info("Found Story %s on %s : '%s'" % (storyET.attrib['id'], date, storyET.find('title').text))
 
 
+		logger.info("Found Story %s " % (storyET.attrib['id']))
 
-		s = Story(title=storyET.find('title').text, storyId=storyET.attrib['id'], date=dateObj)
+		# Check if the story exists in the database. If it does not, create a new story and process all the songs
+		if not Story.objects.filter(storyId=storyET.attrib['id']).exists():
+			thumbnailURL = storyET.find('thumbnail')
+			if not thumbnailURL is None:
+				thumbnailURL = thumbnailURL.find('large')
+				if not thumbnailURL is None:
+					thumbnailURL = thumbnailURL.text
+				else:
+					thumbnailURL = ''
+			else: 
+				thumbnailURL = ''
 
-		s.save()
+			if not thumbnailURL.find('') == -1:
+				thumbnailURL = thumbnailURL[:-5]
+
+			story = Story(title=storyET.find('title').text, storyId=storyET.attrib['id'], description=storyET.find('teaser').text, thumbnail=thumbnailURL, date=dateObj)
+			story.save()
+
+			songList = storyET.findall('song')
+			for song in songList:
+				self.processSong(song, story)
+
+
 
 
 
@@ -230,7 +294,7 @@ class Command(BaseCommand):
 		payload = {
 			"id" : "15709577",
 			"apiKey" : self.nprKey,
-			"fields" : "title,song,storyDate",
+			"fields" : "title,teaser,thumbnail,song,storyDate",
 			"output" : "NPRML",
 			"endDate": "",
 			"numResults" : "50"
@@ -262,9 +326,11 @@ class Command(BaseCommand):
 
 					# Get the new end date from the last response
 					if results == 50:
-						dateString = element.find('storyDate').text[:-14].strip()
+						dateString = element.find('storyDate').text[:-5].strip()
 						dateObj = datetime.datetime.strptime(dateString, dateFormat)
-						payload['endDate'] = str(dateObj.year)+'-'+str(dateObj.month)+'-'+str(dateObj.day)
+
+						# Update the next request with the last date retrieved
+						payload['endDate'] = str(dateObj.year)+'-'+str(dateObj.month)+'-'+str(dateObj.day)+' '+str(dateObj.hour)+':'+str(dateObj.minute)+':'+str(dateObj.second)
 
 					# if the story contains a song, process it into the DB
 					if not element.find('song') is None:
@@ -355,3 +421,10 @@ class Command(BaseCommand):
 		hours,remainder = divmod(runTimeS, 3600)
 		minutes,seconds = divmod(remainder, 60)
 		logger.info( 'Finished UpdateNPR command in %s:%s:%s' % (hours, minutes, seconds) )
+
+
+
+
+
+
+

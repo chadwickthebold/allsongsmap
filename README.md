@@ -12,7 +12,7 @@
 
 ## Vagrant details
 
-Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.6. Also host system should have vagrant >= 1.5 installed.
+Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.7. Also host system should have vagrant >= 1.5 installed.
 
 ## Misc Nodes
 
@@ -20,15 +20,15 @@ Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.6. Als
 * sqlite3 commands are prefixed with a period
 * allsongsmap = project, musicmapper = app, webapp = client interface, externs = external resources
 * all test commands go in /dev folder
+* use https://www.hurl.it/ to mock api requests and visualize NPRML response
 
 ## Keys
 
-Keys should be stored in exportKeys.sh. As of now, you need to login to vagrant 1 time upon provisioning and run 
+Keys should be stored in keys.prop, which gets cat'd into .bash_profile
 ```
-. ./allsongsmap/exportKeys.sh
+export NPRKEY='. . .'
+export SONGKICKKEY='. . .'
 ```
-
-where exportKeys.sh is an executable script containing NPRKEY and SONGKICKKEY variables
 
 ## Steps to get project running
 
@@ -57,4 +57,5 @@ A matching logging handler needs to have been declared inside the top level sett
 * [*] logging
 * [ ] fix mbid to resolve case sensitivity issues, not just take top result
 * [ ] need to clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
-* [ ] set NPRKEY and SONGKICKKEY environment variables automatically
+* [*] set NPRKEY and SONGKICKKEY environment variables automatically
+* [ ] update datetime to non-naive
