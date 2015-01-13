@@ -13,4 +13,4 @@ apt-get install -y sqlite3
 ln -s /vagrant ./allsongsmap
 cat ./allsongsmap/keys.prop >> .bash_profile
 ln -s ./allsongsmap/manage.py manage.py
-alias startserver="python manage.py runserver 0.0.0.0:8000"
+printf '\n alias startserver="python manage.py runserver 0.0.0.0:8000"' >> .bash_profile

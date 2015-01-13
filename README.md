@@ -59,3 +59,5 @@ A matching logging handler needs to have been declared inside the top level sett
 * [ ] need to clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
 * [*] set NPRKEY and SONGKICKKEY environment variables automatically
 * [ ] update datetime to non-naive
+* [ ] setup puppet provisioning
+* [ ] use virtualenv

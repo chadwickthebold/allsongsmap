@@ -15,9 +15,9 @@ class Song(models.Model):
 		return self.title
 
 class Story(models.Model):
+	storyId = models.IntegerField()
 	title = models.TextField()
 	description = models.TextField()
-	storyId = models.IntegerField()
 	date = models.DateTimeField()
 	thumbnail = models.URLField()
 	artists = models.ManyToManyField(Artist)
