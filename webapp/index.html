@@ -1,39 +1,26 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="asmApp" class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="lib/html5-boilerplate/css/normalize.css">
-  <link rel="stylesheet" href="lib/html5-boilerplate/css/main.css">
-  <script src="lib/html5-boilerplate/js/vendor/modernizr.js"></script>
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="lib/angular/angular.min.js"></script>
-  <script src="js/controllers.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Backbone Boilerplate</title>
+
+  <!-- Application styles. -->
+  <!-- build:[href] /styles.min.css -->
+  <link rel="stylesheet" href="/app/styles/index.css">
+  <!-- /build -->
 </head>
-<body >
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<body>
+  <!-- Application container. -->
+  <main role="main" id="main"></main>
 
-  <div ng-controller="ArtistListControl">
-    <input type="text" ng-model="query" placeholder="Filter by name...">
-    <ul>
-      <li ng-repeat="artist in artists | filter:query">
-        {{artist.name}}
-        <p>{{artist.genre}}</p>
-        <p>{{artist.snippet}}</p>
-        <a href="{{artist.link}}">NPR Profile</a>
-      </li>
-    </ul>
-  </div>
+  <!-- Application source. -->
+  <!-- build:[src] /source.min.js -->
+  <script src="/bower_components/requirejs/require.js"
+    data-main="/app/config"></script>
+  <!-- /build -->
 </body>
 </html>
