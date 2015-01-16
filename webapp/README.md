@@ -1,35 +1,16 @@
-![Boilerplate](https://github.com/backbone-boilerplate/backbone-boilerplate/raw/assets/header.png)
 
-[![Build Status](https://travis-ci.org/backbone-boilerplate/backbone-boilerplate.png?branch=master)](https://travis-ci.org/backbone-boilerplate/backbone-boilerplate) [![Coverage Status](https://coveralls.io/repos/backbone-boilerplate/backbone-boilerplate/badge.png)](https://coveralls.io/r/backbone-boilerplate/backbone-boilerplate) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/backbone-boilerplate/backbone-boilerplate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Backbone Boilerplate
+Allsongsmap Frontend
 ====================
 
-This boilerplate is the product of much research and frustration.  Existing
-boilerplates freely modify Backbone core, lack a build process, and are very
-prescriptive; Backbone Boilerplate changes that.
+## Backbone-Boilerplate Info ###
 
-The Backbone Boilerplate is a way of organizing a web application with some
-opinionated defaults: such as Backbone, Lo-Dash (Underscore compatibility
-build), jQuery, RequireJS, Bower, Grunt, Karma, and the HTML5 Boilerplate
-styles.  Built in testing support for: QUnit, Jasmine, and Mocha with Chai.
+### Documentation ###
 
-Organize your application with a logical file structure, develop your
-Models/Collections/Views/Routers inside modules, and build knowing you have
-efficient code that will not bottleneck your users.
+See the backbone boilerplate wiki with any questions about the template that backs this project: [Backbone Boilerplate Wiki](https://github.com/backbone-boilerplate/backbone-boilerplate/wiki)
 
-Thanks to our
-[Contributors](https://github.com/backbone-boilerplate/backbone-boilerplate/contributors)!  Special Thanks to: [cowboy](http://github.com/cowboy),
-[iros](http://github.com/iros), [nimbupani](http://github.com/nimbupani),
-[wookiehangover](http://github.com/wookiehangover), and
-[jugglinmike](http://github.com/jugglinmike) for helping me create this project.  Extra Special Thanks to: [Paul Guinan](http://bigredhair.com/work/paul.html)
-for giving me usage rights to his fantastic Boilerplate character.
 
-## Documentation ##
-
-[Backbone Boilerplate Wiki](https://github.com/backbone-boilerplate/backbone-boilerplate/wiki)
-
-## Getting started ##
+### Getting started ###
 
 The easiest way to get started is to install Git and clone the repository:
 
@@ -45,7 +26,7 @@ mv backbone-boilerplate my-project
 You will need to download and install [Node.js](http://nodejs.org/) if you want
 to use the commands in the following sections.
 
-## Updating dependencies ##
+### Updating dependencies ###
 
 Third party packages may update independently from this main repo, so it's a
 good idea to update after fetching.
@@ -65,7 +46,7 @@ npm install
 bower install
 ```
 
-## Build process ##
+### Build process ###
 
 The build process consists of numerous Grunt plugin tasks that work together
 to optimize your application.
@@ -78,7 +59,7 @@ grunt
 grunt default server:release
 ```
 
-## Running tests ##
+### Running tests ###
 
 To run tests, simply add `.spec.js` files throughout your application and they
 will be automatically picked up by the runner.  You can find example test specs
@@ -103,6 +84,6 @@ the `test/coverage` folder.
 By default, the test runner is Mocha and Chai.  You can easily change this by
 editting the commented regions of the karma configuration in `Gruntfile.js`.
 
-## License ##
+### License ###
 Copyright © 2014 Tim Branyen (@tbranyen)  
 Licensed under the MIT license.
