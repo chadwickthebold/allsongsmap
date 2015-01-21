@@ -4,5 +4,5 @@ from rest_framework import serializers
 
 class StorySerializer(serializers.ModelSerializer):
 	class Meta:
-		model = Snippet
+		model = Story
 		fields = ('id', 'storyId', 'title', 'description', 'date', 'thumbnail', 'artists', 'songs')
