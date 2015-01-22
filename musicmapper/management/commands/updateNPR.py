@@ -2,6 +2,7 @@ import requests
 import logging
 import time
 import os
+import pytz
 import xml.etree.ElementTree as ET
 import datetime
 from django.core.management.base import BaseCommand, CommandError
@@ -192,6 +193,7 @@ class Command(BaseCommand):
 		# Create a date object for the story
 		dateString = storyET.find('storyDate').text[:-5].strip()
 		dateObj = datetime.datetime.strptime(dateString, dateFormat)
+		dateObj = pytz.timezone("US/Eastern").localize(dateObj)
 
 
 		logger.info("Found Story %s " % (storyET.attrib['id']))

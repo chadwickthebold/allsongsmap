@@ -4,7 +4,8 @@ from django.db import models
 
 class Artist(models.Model):
 	name = models.TextField()
-	artistId = models.CharField(max_length=32, blank=True) # This sould be the MBID xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx,
+	mbid = models.CharField(max_length=36, blank=True) # This sould be the MBID xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+	skid = models.CharField(max_length=6, blank=True) # This should be the six-digit songkick ID of the artist
 	def __unicode__(self):
 		return self.name
 
@@ -24,3 +25,8 @@ class Story(models.Model):
 	songs = models.ManyToManyField(Song)
 	def __unicode__(self):
 		return self.title
+
+class LocationSearchResult(models.Model):
+	queryString = models.TextField()
+	result = models.TextField()
+	date = models.DateTimeField()

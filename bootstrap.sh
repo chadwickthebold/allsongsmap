@@ -9,6 +9,7 @@ pip install musicbrainzngs
 pip install djangorestframework
 pip install markdown
 pip install django-filter
+pip install pytz
 apt-get install -y sqlite3
 ln -s /vagrant ./allsongsmap
 cat ./allsongsmap/keys.prop >> .bash_profile
