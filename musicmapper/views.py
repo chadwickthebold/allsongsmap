@@ -11,8 +11,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from musicmapper.models import Story, Artist, Song, LocationSearchResult
-from musicmapper.serializers import StorySerializer
+from musicmapper.models import Story, Artist, Song, LocationSearchResult, Location, Event
+from musicmapper.serializers import StorySerializer, ArtistSerializer, LocationSearchResultSerializer, LocationSerializer, EventSerializer
 
 # Helper class for json responses, from Django REST Framework
 class JSONResponse(HttpResponse):
@@ -105,49 +105,6 @@ def story_list(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def story_detail(request, pk):
 		"""
 		Retrieve a story with its details
@@ -159,6 +116,44 @@ def story_detail(request, pk):
 
 		if request.method == 'GET':
 				serializer = StorySerializer(story)
+				return JSONResponse(serializer.data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def artist_list(request):
+		"""
+		List all artists
+		"""
+		if request.method == 'GET':
+				artists = Artist.objects.all()
+				serializer = ArtistSerializer(artists, many=True)
+				return JSONResponse(serializer.data)
+
+
+
+def artist_detail(request, pk):
+		"""
+		Retrieve an artist with its details
+		"""
+		try:
+				artist = Artist.objects.get(pk=pk)
+		except Artist.DoesNotExist:
+				return HttpResponse(status=404)
+
+		if request.method == 'GET':
+				serializer = ArtistSerializer(artist)
 				return JSONResponse(serializer.data)
 
 
@@ -256,6 +251,68 @@ def location_search(request, query):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def event_search_by_location(request, locationID):
+	"""
+	Retrieve the event calendar for a given metro area and cache it in the db
+	"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def event_search(request, locationID, artistID):
+	"""
+	Search for an event with a given location ID and artist ID
+	"""
 
 
 
