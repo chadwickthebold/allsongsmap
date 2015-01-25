@@ -54,10 +54,11 @@ A matching logging handler needs to have been declared inside the top level sett
 
 ## TODO
 
-* [*] logging
-* [ ] fix mbid to resolve case sensitivity issues, not just take top result
-* [ ] need to clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
-* [*] set NPRKEY and SONGKICKKEY environment variables automatically
-* [ ] update datetime to non-naive
-* [ ] setup puppet provisioning
-* [ ] use virtualenv
+- [ ] Task (resolution)
+- [ ] Implement more robust logging system
+- [ ] Fix mbid to resolve case sensitivity issues, not just take top result
+- [ ] Clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
+- [*] Set NPRKEY and SONGKICKKEY environment variables automatically (Pipe keys.prop to bash_profile)
+- [*] Update datetime to non-naive (Using pytz)
+- [ ] Setup puppet provisioning
+- [ ] Use virtualenv
