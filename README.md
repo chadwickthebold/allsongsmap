@@ -6,9 +6,11 @@
 * https://github.com/alastair/python-musicbrainzngs
 * https://www.songkick.com/developer
 * http://www.npr.org/templates/apidoc/
-* https://docs.djangoproject.com/en/1.6/
+* https://docs.djangoproject.com/en/1.7/
 * https://docs.vagrantup.com/v2/getting-started/
 * https://sqlite.org/cli.html
+* http://puppetlabs.com/puppet/puppet-open-source
+* https://docs.vagrantup.com/v2/provisioning/puppet_apply.html
 
 ## Vagrant details
 
@@ -61,4 +63,4 @@ A matching logging handler needs to have been declared inside the top level sett
 - [*] Set NPRKEY and SONGKICKKEY environment variables automatically (Pipe keys.prop to bash_profile)
 - [*] Update datetime to non-naive (Using pytz)
 - [ ] Setup puppet provisioning
-- [ ] Use virtualenv
+- [ ] Deploy on Linode with security features
