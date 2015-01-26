@@ -1,7 +1,13 @@
 #allsongsmap Readme
 
+## About
+
+This is allsongsmap, a webapp that combines the NPR Story API with the Songkick API to figure out if artists featured on the [All Songs Considered](http://www.npr.org/blogs/allsongs/) podcast have upcoming shows in a certain area. The vision is to come to this site, type in your zip code/ city, hit a big 'ol button and get back a list of upcoming events with links to their Songkick page so you can get tickets. Also being explored are sorting featured artists by genre and date, as well as creating a feed so you could just import this whole list right into songkick and have them send you update emails. Rock on! \o/
+
 ## Links
 
+* http://www.npr.org/blogs/allsongs/
+* https://www.songkick.com/
 * http://python-musicbrainzngs.readthedocs.org/en/latest/
 * https://github.com/alastair/python-musicbrainzngs
 * https://www.songkick.com/developer
@@ -14,7 +20,7 @@
 
 ## Vagrant details
 
-Using the ubuntu/trusty64 box. Running apache2, python 2.7.4 and Django 1.7. Also host system should have vagrant >= 1.5 installed.
+Using the ubuntu/trusty64 box. Running apache2, python 2.7.5 and Django 1.7. Also host system should have vagrant >= 1.5 installed.
 
 ## Misc Nodes
 
@@ -39,7 +45,7 @@ export SONGKICKKEY='. . .'
 	* vagrant box add ubuntu/trusty64 if necessary
 	* Run vagrant up and ensure that all commands executed successfully
 3. Run 'manage.py syncdb' to create sqlite tables
-	* Use super:pw/info@tylerchadwick.com for development when asked to create superusers
+	* Use super:pw/user@email.com for development when asked to create superusers
 
 ## Logging
 
@@ -56,11 +62,17 @@ A matching logging handler needs to have been declared inside the top level sett
 
 ## TODO
 
-- [ ] Task (resolution)
+- [*] Task (resolution)
 - [ ] Implement more robust logging system
 - [ ] Fix mbid to resolve case sensitivity issues, not just take top result
 - [ ] Clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
 - [*] Set NPRKEY and SONGKICKKEY environment variables automatically (Pipe keys.prop to bash_profile)
 - [*] Update datetime to non-naive (Using pytz)
-- [ ] Setup puppet provisioning
+- [*] Setup puppet provisioning (check out the puppet directory and init.pp)
+- [ ] Integrate with Musicbrainz or Echonest API to get artist info and picture, track listsings
+- [ ] Create Story cards
+- [ ] Create artist cards
+- [ ] Create event cards
+- [ ] Figure out caching scheme for event and location search results
+- [ ] Implement library for location search using zip code
 - [ ] Deploy on Linode with security features
