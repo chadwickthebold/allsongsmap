@@ -1,0 +1,27 @@
+{
+  "name": "allsongsmap",
+  "version": "0.1.0",
+  "homepage": "https://github.com/chadwickthebold/allsongsmap",
+  "authors": [
+    "Tyler Chadwick <chadwickthebold@gmail.com>"
+  ],
+  "keywords": [
+    "allsongsmap"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "react": "~0.12.2",
+    "pure": "~0.5.0",
+    "normalize.css": "~3.0.2"
+  },
+  "devDependencies": {}
+}
