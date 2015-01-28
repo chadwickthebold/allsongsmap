@@ -60,6 +60,47 @@ etc...
 
 A matching logging handler needs to have been declared inside the top level settings.py to properly catch stuff.
 
+
+## Frontend
+
+Here are some details about the frontend-specific stuff.
+
+### Getting started
+
+npm install
+gulp bower
+
+### Libraries
+
+Using bower to manage libraries/components
+
+* Gulp
+* Backbone
+* React
+* Pure
+* Mocha
+
+### Gulp
+
+Task definitions go in the gulpfile, helpers
+
+#### Dependencies 
+* gulp-less
+* gulp-rename
+* gulp-jshint
+* gulp-concat
+* gulp-mocha
+* gulp-uglify
+
+#### Tasks
+* init
+* concat
+* lint
+* min
+* serve
+* test
+* watch
+
 ## TODO
 
 - [*] Task (resolution)
@@ -76,3 +117,5 @@ A matching logging handler needs to have been declared inside the top level sett
 - [ ] Figure out caching scheme for event and location search results
 - [ ] Implement library for location search using zip code
 - [ ] Deploy on Linode with security features
+- [ ] Migrate development management to a pure gulp setup, route manage.py through this
+- [ ] Why is gulp-less throwing a missing module error?
