@@ -74,11 +74,13 @@ gulp bower
 
 Using bower to manage libraries/components
 
-* Gulp
 * Backbone
+* Backbone-localstorage
+* jQuery
 * React
 * Pure
-* Mocha
+* Require
+* Normalize
 
 ### Gulp
 

@@ -11,13 +11,10 @@
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 
 				<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-				<link href="{{STATIC_URL}}css/normalize.css" rel="stylesheet" type="text/css">
-				<link href="{{STATIC_URL}}css/pure.css" rel="stylesheet" type="text/css">
+				<link href="{{STATIC_URL}}css/lib/normalize.css" rel="stylesheet" type="text/css">
+				<link href="{{STATIC_URL}}css/lib/pure.css" rel="stylesheet" type="text/css">
 
-				<script src="{{STATIC_URL}}js/underscore.js"></script>
-				<script src="{{STATIC_URL}}js/backbone.js"></script>
-				<script src="{{STATIC_URL}}js/react.js"></script>
-				<script src="{{STATIC_URL}}js/JSXTransformer.js"></script>
+				<script data-main="{{STATIC_URL}}js/main" src="{{STATIC_URL}}js/lib/require.js"></script>
 		</head>
 		<body>
 				<!--[if lt IE 7]>
