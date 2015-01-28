@@ -35,6 +35,9 @@ node default{
 	include python::client
 	include python::requirements
 
+	# Install front end requirements
+	# node, npm, gulp
+
 
 	# Miscellaneous setup tasks
 	file { '/home/vagrant/allsongsmap':

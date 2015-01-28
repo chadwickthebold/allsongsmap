@@ -49,7 +49,7 @@ def index(request):
 	"""
 	Entry point for the application, should load the backbone frontend app
 	"""
-	return HttpResponse("Hello, world! This is the musicmapper index.")
+	return render(request, 'musicmapper/index.html', {})
 
 
 
