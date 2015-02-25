@@ -37,6 +37,18 @@ node default{
 
 	# Install front end requirements
 	# node, npm, gulp
+	package { "nodejs":
+		ensure => 'installed'
+	}
+
+	package { "npm":
+		ensure => 'installed'
+	}
+
+	exec { "npm-gulp":
+		command => "/usr/bin/npm install -g gulp",
+		require => Package['npm']
+	}
 
 
 	# Miscellaneous setup tasks
@@ -49,6 +61,12 @@ node default{
 		ensure => 'link',
 		target => 'allsongsmap/manage.py',
 		require => File["/home/vagrant/allsongsmap"],
+	}
+
+	file { '/usr/bin/node':
+		ensure => 'link',
+		target => '/usr/bin/nodejs',
+		require => Package['nodejs']
 	}
 
 	exec { "Export API keys":

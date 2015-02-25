@@ -5,10 +5,11 @@ var concat = require('gulp-concat'),
 		rename = require('gulp-rename'),
 		jshint = require('gulp-jshint'),
 		uglify = require('gulp-uglify'),
-//		less = require('gulp-less'), 
+		less = require('gulp-less'), 
 		mocha = require('gulp-mocha'),
 		shell = require('gulp-shell'),
 		merge = require('merge-stream');
+
 
 
 // Task to install bower components
@@ -16,19 +17,22 @@ gulp.task('bower', shell.task([
 	'bower install'
 ]));
 
+
 // Initialize the database, requires input
 gulp.task('syncdb', shell.task([
 	'python manage.py syncdb'
 ]));
 
-// load the latest stories and artists into the db
-gulp.task('initdb', shell.task([
+
+// Load the latest stories and artists into the db
+gulp.task('initdb', ['syncdb'], shell.task([
 	'python manage.py updateNPR',
 	'python manage.py updateArtists'
 ]));
 
+
 // Serve a local copy of the project
-gulp.task('devserv', shell.task([
+gulp.task('serve', shell.task([
 	'python manage.py runserver 0.0.0.0:8000'
 ]));
 
@@ -62,10 +66,62 @@ var normalize = gulp.src('bower_components/normalize.css/normalize.css')
 var pure = gulp.src('bower_components/pure/pure.css')
 		.pipe(gulp.dest('musicmapper/static/css/lib'));
 
-	return merge(backbone, underscore, react, jsx, normalize, pure);
 });
 
+
+// Compile LESS files into CSS
+gulp.task('less', function() {
+	gulp.src('musicmapper/static/less')
+		.pipe(less())
+		.pipe(gulp.dest('musicmapper/static/css'));
+})
+
+
+// Wipe files generated in build and dist stages
+gulp.task('clean', function() {
+
+});
+
+
+// Compile and minify static web files
+gulp.task('dist', function() {
+
+});
+
+
+gulp.task('watch', function() {
+
+});
+
+
+// Bring the project up following a git pull
+gulp.task('init', ['bower', 'initdb'], function() {
+
+});
+
+
+// Compile library and project files into unified files
+// This will include running jshint prior to the closure compiler minifying everything
+gulp.task('concat', function() {
+
+});
+
+
+// Minify the compiled static files
+gulp.task('min', function() {
+
+});
+
+
+// Run unit tests
+gulp.task('test', function() {
+
+});
+
+
+
 // Define default task
-gulp.task('default', function() {
+// This will deploy static resources
+gulp.task('default', ['init', 'concat', 'min', 'serve', 'watch'],function() {
 	
 });

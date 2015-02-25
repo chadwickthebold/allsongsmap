@@ -97,7 +97,6 @@ Task definitions go in the gulpfile, helpers
 #### Tasks
 * init
 * concat
-* lint
 * min
 * serve
 * test
@@ -109,9 +108,9 @@ Task definitions go in the gulpfile, helpers
 - [ ] Implement more robust logging system
 - [ ] Fix mbid to resolve case sensitivity issues, not just take top result
 - [ ] Clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
-- [*] Set NPRKEY and SONGKICKKEY environment variables automatically (Pipe keys.prop to bash_profile)
-- [*] Update datetime to non-naive (Using pytz)
-- [*] Setup puppet provisioning (check out the puppet directory and init.pp)
+- [x] Set NPRKEY and SONGKICKKEY environment variables automatically (Pipe keys.prop to bash_profile)
+- [x] Update datetime to non-naive (Using pytz)
+- [x] Setup puppet provisioning (check out the puppet directory and init.pp)
 - [ ] Integrate with Musicbrainz or Echonest API to get artist info and picture, track listsings
 - [ ] Create Story cards
 - [ ] Create artist cards
@@ -120,4 +119,4 @@ Task definitions go in the gulpfile, helpers
 - [ ] Implement library for location search using zip code
 - [ ] Deploy on Linode with security features
 - [ ] Migrate development management to a pure gulp setup, route manage.py through this
-- [ ] Why is gulp-less throwing a missing module error?
+- [x] Why is gulp-less throwing a missing module error? (Needed to update global npm to include promises module)
