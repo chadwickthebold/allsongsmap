@@ -8,7 +8,9 @@ var concat = require('gulp-concat'),
 		less = require('gulp-less'), 
 		mocha = require('gulp-mocha'),
 		shell = require('gulp-shell'),
-		merge = require('merge-stream');
+		merge = require('merge-stream'),
+		react = require('gulp-react'),
+		del = require('del');
 
 
 
@@ -18,26 +20,20 @@ gulp.task('bower', shell.task([
 ]));
 
 
-// Initialize the database, requires input
-gulp.task('syncdb', shell.task([
-	'python manage.py syncdb'
-]));
-
-
-// Load the latest stories and artists into the db
-gulp.task('initdb', ['syncdb'], shell.task([
-	'python manage.py updateNPR',
-	'python manage.py updateArtists'
-]));
+gulp.task('react', function() {
+	gulp.src('musicmapper/static/js/src/*.jsx')
+		.pipe(react())
+		.pipe(gulp.dest('musicmapper/static/js/dist'));
+});
 
 
 // Serve a local copy of the project
-gulp.task('serve', shell.task([
+gulp.task('serve', ['dist'], shell.task([
 	'python manage.py runserver 0.0.0.0:8000'
 ]));
 
 
-// Move the static resources into the musicmapper app
+// Move the library resources into the musicmapper app
 gulp.task('deploy_static', function() {
 	var backbone = gulp.src('bower_components/backbone/backbone.js')
 		.pipe(gulp.dest('musicmapper/static/js/lib'));
@@ -55,9 +51,6 @@ var require = gulp.src('bower_components/require/build/require.js')
 		.pipe(gulp.dest('musicmapper/static/js/lib'));
 
 	var react = gulp.src('bower_components/react/react.js')
-		.pipe(gulp.dest('musicmapper/static/js/lib'));
-
-	var jsx = gulp.src('bower_components/react/JSXTransformer.js')
 		.pipe(gulp.dest('musicmapper/static/js/lib'));
 
 var normalize = gulp.src('bower_components/normalize.css/normalize.css')
@@ -84,18 +77,19 @@ gulp.task('clean', function() {
 
 
 // Compile and minify static web files
-gulp.task('dist', function() {
-
+gulp.task('dist', ['react','deploy_static'], function() {
+	gulp.src('musicmapper/static/js/src/*.js')
+		.pipe(gulp.dest('musicmapper/static/js/dist'));
 });
 
 
-gulp.task('watch', function() {
-
+gulp.task('watch', ['dist'], function() {
+	gulp.watch('musicmapper/static/js/src/*', ['dist']);
+	gulp.watch('musicmapper/static/less/*', ['less']);
 });
 
 
-// Bring the project up following a git pull
-gulp.task('init', ['bower', 'initdb'], function() {
+gulp.task('init', function() {
 
 });
 

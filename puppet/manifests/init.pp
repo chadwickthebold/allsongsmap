@@ -45,8 +45,8 @@ node default{
 		ensure => 'installed'
 	}
 
-	exec { "npm-gulp":
-		command => "/usr/bin/npm install -g gulp",
+	exec { "npm-install":
+		command => "/usr/bin/npm install -g gulp bower",
 		require => Package['npm']
 	}
 
@@ -72,6 +72,10 @@ node default{
 	exec { "Export API keys":
 		command => "/bin/cat ./allsongsmap/keys.prop >> .bash_profile",
 		require => File["/home/vagrant/allsongsmap"]
+	}
+
+	file { "/etc/profile.d/my_test.sh":
+		content => 'export NODE_PATH="/usr/local/lib/node_modules"'
 	}
 
 

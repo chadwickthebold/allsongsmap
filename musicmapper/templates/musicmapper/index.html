@@ -14,16 +14,23 @@
 				<link href="{{STATIC_URL}}css/lib/normalize.css" rel="stylesheet" type="text/css">
 				<link href="{{STATIC_URL}}css/lib/pure.css" rel="stylesheet" type="text/css">
 
-				<script data-main="{{STATIC_URL}}js/main" src="{{STATIC_URL}}js/lib/require.js"></script>
 		</head>
 		<body>
 				<!--[if lt IE 7]>
 						<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 				<![endif]-->
 
-				<!-- Add your site or application content here -->
-				<p>Hello world! This is HTML5 Boilerplate.</p>
+				<div id="asm" class="asm"></div>
 
+				<script src="{{STATIC_URL}}js/lib/react.js"></script>
+				<script src="{{STATIC_URL}}js/lib/jquery.js"></script>
+				<script src="{{STATIC_URL}}js/lib/underscore.js"></script>
+				<script src="{{STATIC_URL}}js/lib/backbone.js"></script>
+				<script src="{{STATIC_URL}}js/lib/backbone.localstorage.js"></script>
 
+				<script src="{{STATIC_URL}}js/dist/header.js"></script>
+				<script src="{{STATIC_URL}}js/dist/footer.js"></script>
+				<script src="{{STATIC_URL}}js/dist/app.js"></script>
+				<script src="{{STATIC_URL}}js/dist/main.js"></script>
 		</body>
 </html>
