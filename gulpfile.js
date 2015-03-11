@@ -64,7 +64,7 @@ var pure = gulp.src('bower_components/pure/pure.css')
 
 // Compile LESS files into CSS
 gulp.task('less', function() {
-	gulp.src('musicmapper/static/less')
+	gulp.src('musicmapper/static/less/*.less')
 		.pipe(less())
 		.pipe(gulp.dest('musicmapper/static/css'));
 })

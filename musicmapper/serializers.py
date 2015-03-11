@@ -3,9 +3,9 @@ from rest_framework import serializers
 
 
 class StorySerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Story
-		fields = ('id', 'storyId', 'title', 'description', 'date', 'thumbnail', 'artists', 'songs')
+		class Meta:
+			model = Story
+			fields = ('id', 'storyId', 'title', 'description', 'date', 'thumbnail', 'artists', 'songs')
 
 class ArtistSerializer(serializers.ModelSerializer):
 	class Meta:

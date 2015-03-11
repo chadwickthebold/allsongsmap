@@ -37,136 +37,11 @@ class JSONResponse(HttpResponse):
 
 
 
-
-
-
-
-
-
-
-
 def index(request):
 	"""
 	Entry point for the application, should load the backbone frontend app
 	"""
 	return render(request, 'musicmapper/index.html', {})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def story_list(request):
-		"""
-		List all stories
-		"""
-		if request.method == 'GET':
-				stories = Story.objects.all()
-				serializer = StorySerializer(stories, many=True)
-				return JSONResponse(serializer.data)
-
-
-
-def story_detail(request, pk):
-		"""
-		Retrieve a story with its details
-		"""
-		try:
-				story = Story.objects.get(pk=pk)
-		except Story.DoesNotExist:
-				return HttpResponse(status=404)
-
-		if request.method == 'GET':
-				serializer = StorySerializer(story)
-				return JSONResponse(serializer.data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def artist_list(request):
-		"""
-		List all artists
-		"""
-		if request.method == 'GET':
-				artists = Artist.objects.all()
-				serializer = ArtistSerializer(artists, many=True)
-				return JSONResponse(serializer.data)
-
-
-
-def artist_detail(request, pk):
-		"""
-		Retrieve an artist with its details
-		"""
-		try:
-				artist = Artist.objects.get(pk=pk)
-		except Artist.DoesNotExist:
-				return HttpResponse(status=404)
-
-		if request.method == 'GET':
-				serializer = ArtistSerializer(artist)
-				return JSONResponse(serializer.data)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -313,13 +188,6 @@ def event_search(request, locationID, artistID):
 	"""
 	Search for an event with a given location ID and artist ID
 	"""
-
-
-
-
-
-
-
 
 
 

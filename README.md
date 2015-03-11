@@ -102,9 +102,17 @@ Task definitions go in the gulpfile, helpers
 * test
 * watch
 
+
+## API
+
+* /stories/
+* /stories/pk/
+* /artists/
+* /artists/pk
+
 ## TODO
 
-- [*] Task (resolution)
+- [x] Task (resolution)
 - [ ] Implement more robust logging system
 - [ ] Fix mbid to resolve case sensitivity issues, not just take top result
 - [ ] Clean up cases where musicbrainz search returns wrong result -> Brian Eno/ David Brynne
@@ -120,3 +128,4 @@ Task definitions go in the gulpfile, helpers
 - [ ] Deploy on Linode with security features
 - [ ] Migrate development management to a pure gulp setup, route manage.py through this
 - [x] Why is gulp-less throwing a missing module error? (Needed to update global npm to include promises module)
+- [ ] Update libraries to latest versions, especially Django REST Framework
