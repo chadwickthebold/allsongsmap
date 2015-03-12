@@ -13,15 +13,13 @@
 				<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 				<link href="{{STATIC_URL}}css/lib/normalize.css" rel="stylesheet" type="text/css">
 				<link href="{{STATIC_URL}}css/lib/pure.css" rel="stylesheet" type="text/css">
-				<link href="{{STATIC_URL}}css/musicmapper.css" rel="stylesheet" type="text/css">
+				<link href="{{STATIC_URL}}css/asm.css" rel="stylesheet" type="text/css">
 
 		</head>
-		<body class="asm asm-light">
+		<body id="asm" class="asm asm-light">
 				<!--[if lt IE 7]>
 						<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 				<![endif]-->
-
-				<div id="asm"></div>
 
 				<script src="{{STATIC_URL}}js/lib/react.js"></script>
 				<script src="{{STATIC_URL}}js/lib/jquery.js"></script>
@@ -29,9 +27,13 @@
 				<script src="{{STATIC_URL}}js/lib/backbone.js"></script>
 				<script src="{{STATIC_URL}}js/lib/backbone.localstorage.js"></script>
 
+				<!-- Components -->
 				<script src="{{STATIC_URL}}js/dist/header.js"></script>
 				<script src="{{STATIC_URL}}js/dist/footer.js"></script>
+				<script src="{{STATIC_URL}}js/dist/story-card.js"></script>
 				<script src="{{STATIC_URL}}js/dist/app.js"></script>
+
+
 				<script src="{{STATIC_URL}}js/dist/main.js"></script>
 		</body>
 </html>

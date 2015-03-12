@@ -1,20 +1,28 @@
-Backbone.history.start();
+//Application namespace
+var asm = asm || {};
 
-var Story = Backbone.Model.extend({
-	defaults: {
-		id : 0,
-		title : '',
-		description : '',
-		date : '',
-		image : '',
-		artists : []
-	}
-});
+(function() {
+	'use strict'
 
-var StoryCollection = Backbone.Collection.extend({
-	model : Story,
-	url : '/api/stories'
-});
+	Backbone.history.start();
 
-var stories = new StoryCollection();
-stories.fetch();
+	asm.Story = Backbone.Model.extend({
+		defaults: {
+			id : 0,
+			title : '',
+			description : '',
+			date : '',
+			image : '',
+			artists : []
+		}
+	});
+
+	asm.StoryCollection = Backbone.Collection.extend({
+		model : asm.Story,
+		url : '/api/stories'
+	});
+
+	asm.stories = new asm.StoryCollection();
+	asm.stories.fetch();
+
+})();

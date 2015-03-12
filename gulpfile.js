@@ -72,7 +72,7 @@ gulp.task('less', function() {
 
 // Wipe files generated in build and dist stages
 gulp.task('clean', function() {
-
+	del(['musicmapper/static/js/dist', 'musicmapper/static/css'])
 });
 
 
